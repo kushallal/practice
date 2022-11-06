@@ -89,7 +89,7 @@ const Plane = () => {
       <table border="1">
         <thead>
           <tr>
-            <td>Plane Name</td>
+            <td>Plane Names</td>
             <td>Paper Name</td>
             <td>Engineer Name</td>
             <td>Date of Completion</td>
