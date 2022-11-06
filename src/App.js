@@ -1,14 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
-import PaperPlane from './components/PaperPlane';
+import logo from "./logo.svg";
+import "./App.css";
+import Paper from "./components/paper/Paper";
 
 function App() {
-    
-  
-
-  return (
-    <PaperPlane />
-  );
+  return <Paper />;
 }
 
 export default App;
