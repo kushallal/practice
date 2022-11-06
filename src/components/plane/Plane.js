@@ -64,10 +64,9 @@ const Plane = () => {
         <button
           type="button"
           onClick={() => {
-            if (planename && planepaper && planeengineer && compdate) {
-              console.log(
-                PlaneFieldsCheck(planename, planepaper, planeengineer, compdate)
-              );
+            if (
+              PlaneFieldsCheck(planename, planepaper, planeengineer, compdate)
+            ) {
               setPlanerows((old) => [
                 <PlaneRows
                   name={planename}

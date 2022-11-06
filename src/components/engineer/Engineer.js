@@ -50,7 +50,8 @@ const Engineer = () => {
         <button
           type="button"
           onClick={() => {
-            if (name && age > 0 && exp > 0) {
+            if (EngineerFieldsCheck(name, age, exp)) {
+              console.log(EngineerFieldsCheck(name, age, exp));
               setEngineerrows((old) => [
                 <EngineerRows ename={name} eage={age} eexp={exp} />,
                 ...old,
