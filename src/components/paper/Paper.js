@@ -67,7 +67,7 @@ const Paper = () => {
                 />,
                 ...old,
               ]);
-              setPapernamearr((old) => [...old, papername]);
+              setPapernamearr((old) => [papername, ...old]);
             } else {
               alert("Fields need values");
             }

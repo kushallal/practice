@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useState } from "react";
+import { PlaneFieldsCheck } from "../../helper";
 import { EngineerContext } from "../engineer/Engineer";
 import { PaperContext } from "../paper/Paper";
 import PlaneRows from "./PlaneRows";
@@ -11,7 +12,7 @@ const Plane = () => {
   const [planename, setPlanename] = useState("");
   const [planepaper, setPlanepaper] = useState("");
   const [planeengineer, setPlaneengineer] = useState("");
-  const [compdate, setCompdate] = useState(null);
+  const [compdate, setCompdate] = useState("");
 
   return (
     <div>
@@ -26,19 +27,17 @@ const Plane = () => {
         <label>Paper Name</label>
 
         <select
-          defaultValue={planepaper}
           value={planepaper}
           onChange={(e) => setPlanepaper(e.target.value)}
           required
         >
-          <option disabled selected>
-            Choose Paper Name
-          </option>
+          <option>Select Paper</option>
           {papernamearr.map((el) => (
             <option>{el}</option>
           ))}
         </select>
         <br />
+
         <label>Engineer Name</label>
 
         <select
@@ -46,9 +45,7 @@ const Plane = () => {
           onChange={(e) => setPlaneengineer(e.target.value)}
           required
         >
-          <option disabled selected>
-            Choose Engineer Name
-          </option>
+          <option>Select Engineer</option>
           {namearr.map((el) => (
             <option>{el}</option>
           ))}
@@ -63,11 +60,14 @@ const Plane = () => {
           required
         />
         <br />
-
+        {planename}
         <button
           type="button"
           onClick={() => {
             if (planename && planepaper && planeengineer && compdate) {
+              console.log(
+                PlaneFieldsCheck(planename, planepaper, planeengineer, compdate)
+              );
               setPlanerows((old) => [
                 <PlaneRows
                   name={planename}
@@ -78,7 +78,7 @@ const Plane = () => {
                 old,
               ]);
             } else {
-              alert("fields need values");
+              alert("fields need prop values");
             }
           }}
         >
@@ -86,17 +86,18 @@ const Plane = () => {
         </button>
       </form>
       <form name="engineers"></form>
-      {planepaper}
+
       <table border="1">
-        <tr>
-          <td>Plane Name</td>
-          <td>Paper Name</td>
-          <td>Engineer Name</td>
-          <td>Date of Completion</td>
-        </tr>
-        {planerows}
+        <thead>
+          <tr>
+            <td>Plane Name</td>
+            <td>Paper Name</td>
+            <td>Engineer Name</td>
+            <td>Date of Completion</td>
+          </tr>
+        </thead>
+        <tbody>{planerows}</tbody>
       </table>
-      {namearr}
     </div>
   );
 };
