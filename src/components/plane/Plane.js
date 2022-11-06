@@ -60,7 +60,7 @@ const Plane = () => {
           required
         />
         <br />
-        {planename}
+
         <button
           type="button"
           onClick={() => {
