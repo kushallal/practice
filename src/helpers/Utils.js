@@ -6,8 +6,8 @@ export const getIdValue = (id) => {
 
 export const displayRows = (arr) => {
   const array=arr.map((el)=>Object.values(el))
-  const rowArray = array.map(el=>(<tr>{el.map(e=><td>{e}</td>)}</tr>))
-  console.log(rowArray)
+  const rowArray = array.map(el=>(<tr>{el.map(e=><td >{e}</td>)}</tr>))
+  
   return (rowArray)
   
 }

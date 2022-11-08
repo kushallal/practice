@@ -7,7 +7,9 @@ import Plane from "./components/plane/Plane";
 function App() {
   return (
     <div>
+      <Paper />
       <Engineer />
+      
     </div>
   );
 }

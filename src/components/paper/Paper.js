@@ -1,37 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { getPaperOptions } from "../../helpers/PaperHelper";
+import { getPaperOptions,createPaperObject } from "../../helpers/PaperHelper";
 import { getPapers } from "../../helpers/RestApiHelper";
+import { displayRows } from "../../helpers/Utils";
 const Paper = () => {
   useEffect(() => {
     getPapers().then((data) => setPapers(data));
   }, []);
-  const [papers, setPapers] = useState([]);
+  const [papers, setPapers] =useState([]);
 
-  const [paperRow, setPaperRow] = useState([]);
+  const [paperRows, setPaperRows] = useState([]);
 
-  const addPaperRow = (e) => {
-    console.log(e.target);
+  const addPaperRow = () => {
+    const paperObj = createPaperObject("paperType","paperLength",
+    "paperHeight")
+    if(paperObj){
+      setPaperRows((old)=>[...old,paperObj])
+    }
   };
   return (
     <div>
       <form name="paperdescription">
         <h1>Paper Description</h1>
         <label>Paper Type</label>
-        <select name="paperType">{getPaperOptions(papers)}</select>
+        <select id="paperType">{getPaperOptions(papers)}</select>
         <br />
 
         <label>Paper Length</label>
-        <input name="paperLength" type="number" required />
+        <input id="paperLength" type="number" required />
         <br />
 
         <label>Paper Height</label>
-        <input name="paperHeight" type="number" required />
+        <input id="paperHeight" type="number" required />
         <br />
 
-        <button type="submit">Submit</button>
+        <button type="button" onClick={addPaperRow}>Submit</button>
       </form>
 
-      {/* <table border="1">
+      <table border="1">
         <thead>
           <tr>
             <td>Paper Type</td>
@@ -39,8 +44,8 @@ const Paper = () => {
             <td>Paper Width</td>
           </tr>
         </thead>
-        <tbody>1</tbody>
-      </table> */}
+        <tbody>{displayRows(paperRows)}</tbody>
+      </table>
     </div>
   );
 };
