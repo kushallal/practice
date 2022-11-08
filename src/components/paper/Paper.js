@@ -1,83 +1,37 @@
-import React, { useState, createContext } from "react";
-import PaperRows from "./PaperRows";
-import Plane from "../plane/Plane";
-import Engineer from "../engineer/Engineer";
-export const PaperContext = createContext([]);
+import React, { useState, useEffect } from "react";
+import { getPaperOptions } from "../../helpers/PaperHelper";
+import { getPapers } from "../../helpers/RestApiHelper";
 const Paper = () => {
-  const [paperrow, setPaperrow] = useState([]);
-  const [papername, setPapername] = useState();
-  const [paperlen, setPaperlen] = useState("");
-  const [paperheight, setPaperheight] = useState("");
-  const [papernamearr, setPapernamearr] = useState([]);
+  useEffect(() => {
+    getPapers().then((data) => setPapers(data));
+  }, []);
+  const [papers, setPapers] = useState([]);
 
+  const [paperRow, setPaperRow] = useState([]);
+
+  const addPaperRow = (e) => {
+    console.log(e.target);
+  };
   return (
     <div>
-      <form name="paperdes">
+      <form name="paperdescription">
         <h1>Paper Description</h1>
         <label>Paper Type</label>
-        <select
-          value={papername}
-          onChange={(en) => {
-            setPapername(en.target.value);
-          }}
-          required
-        >
-          <option disabled selected>
-            Select Paper Type
-          </option>
-          <option>White Paper</option>
-          <option>Nepali Paper</option>
-        </select>
+        <select name="paperType">{getPaperOptions(papers)}</select>
         <br />
+
         <label>Paper Length</label>
-        <input
-          value={paperlen}
-          onChange={(e) => {
-            if (!isNaN(e.target.value)) {
-              setPaperlen(e.target.value);
-            }
-          }}
-          type="numbers"
-          required
-        />
+        <input name="paperLength" type="number" required />
         <br />
 
         <label>Paper Height</label>
-        <input
-          value={paperheight}
-          onChange={(e) => {
-            if (!isNaN(e.target.value)) {
-              setPaperheight(e.target.value);
-            }
-          }}
-          type="numbers"
-          required
-        />
+        <input name="paperHeight" type="number" required />
         <br />
 
-        <button
-          type="button"
-          onClick={() => {
-            if (papername && paperlen > 0 && paperheight > 0) {
-              setPaperrow((old) => [
-                <PaperRows
-                  name={papername}
-                  len={paperlen}
-                  height={paperheight}
-                />,
-                ...old,
-              ]);
-              setPapernamearr((old) => [papername, ...old]);
-            } else {
-              alert("Fields need values");
-            }
-          }}
-        >
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </form>
 
-      <table border="1">
+      {/* <table border="1">
         <thead>
           <tr>
             <td>Paper Type</td>
@@ -85,11 +39,8 @@ const Paper = () => {
             <td>Paper Width</td>
           </tr>
         </thead>
-        <tbody>{paperrow}</tbody>
-      </table>
-      <PaperContext.Provider value={papernamearr}>
-        <Engineer />
-      </PaperContext.Provider>
+        <tbody>1</tbody>
+      </table> */}
     </div>
   );
 };

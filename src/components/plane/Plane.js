@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { useState } from "react";
-import { PlaneFieldsCheck } from "../../helper";
-import { EngineerContext } from "../engineer/Engineer";
-import { PaperContext } from "../paper/Paper";
+import { PlaneFieldsCheck } from "../../helpers/helper";
+
 import PlaneRows from "./PlaneRows";
 
 const Plane = () => {
-  const papernamearr = useContext(PaperContext);
-  const namearr = useContext(EngineerContext);
+  const papernamearr = [];
+  const namearr = "";
   const [planerows, setPlanerows] = useState([]);
   const [planename, setPlanename] = useState("");
   const [planepaper, setPlanepaper] = useState("");
@@ -64,10 +63,9 @@ const Plane = () => {
         <button
           type="button"
           onClick={() => {
-            if (planename && planepaper && planeengineer && compdate) {
-              console.log(
-                PlaneFieldsCheck(planename, planepaper, planeengineer, compdate)
-              );
+            if (
+              PlaneFieldsCheck(planename, planepaper, planeengineer, compdate)
+            ) {
               setPlanerows((old) => [
                 <PlaneRows
                   name={planename}
@@ -90,7 +88,7 @@ const Plane = () => {
       <table border="1">
         <thead>
           <tr>
-            <td>Plane Name</td>
+            <td>Plane Names</td>
             <td>Paper Name</td>
             <td>Engineer Name</td>
             <td>Date of Completion</td>

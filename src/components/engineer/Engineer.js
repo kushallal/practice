@@ -1,67 +1,52 @@
 import React, { useState, createContext } from "react";
-import Plane from "../plane/Plane";
-import EngineerRows from "./EngineerRows";
-import { EngineerFieldsCheck } from "../../helper";
-export const EngineerContext = createContext([]);
+import { createEngineerObject } from "../../helpers/EngineerHelper";
+import { getIdValue } from "../../helpers/Utils";
 const Engineer = () => {
-  const [engineerrows, setEngineerrows] = useState([]);
-  const [name, setName] = useState("");
-  const [namearr, setNamearr] = useState([]);
-  const [age, setAge] = useState("");
-  const [exp, setExp] = useState("");
+  const [engineerRows, setEngineerRows] = useState([
+    {
+      name: "kushal",
+      age: 12,
+      exp: 11,
+    },
+  ]);
+  const [tableRows, setTableRows] = useState();
+  const addEngineerRows = () => {
+    setEngineerRows((old) => [
+      ...old,
+      createEngineerObject("name", "age", "exp"),
+    ]);
+  };
+  const displayEngineerRows = (arr) => {
+    return arr.map((element) => {
+      const array = Object.values(element);
+      console.log("inside", array);
+      return (
+        <tr>
+          {array.map((el) => (
+            <td>{el}</td>
+          ))}
+        </tr>
+      );
+    });
+  };
+
+  console.log();
   return (
     <div>
       <form name="engineers">
         <h1>Engineer Description</h1>
         <label>Name</label>
-        <input
-          value={name}
-          onChange={(en) => setName(en.target.value)}
-          minLength="2"
-          required
-        />
+        <input type="text" id="name" required />
 
         <br />
         <label>Age</label>
-        <input
-          value={age}
-          onChange={(e) => {
-            if (!isNaN(e.target.value)) {
-              setAge(e.target.value);
-            }
-          }}
-          type="numbers"
-          required
-        />
+        <input type="numbers" id="age" required />
         <br />
 
         <label>Experience</label>
-        <input
-          value={exp}
-          onChange={(e) => {
-            if (!isNaN(e.target.value)) {
-              setExp(e.target.value);
-            }
-          }}
-          type="numbers"
-          required
-        />
+        <input type="numbers" id="exp" required />
         <br />
-        <button
-          type="button"
-          onClick={() => {
-            if (name && age > 0 && exp > 0) {
-              setEngineerrows((old) => [
-                <EngineerRows ename={name} eage={age} eexp={exp} />,
-                ...old,
-              ]);
-
-              setNamearr((old) => [...old, name]);
-            } else {
-              alert("fields need values");
-            }
-          }}
-        >
+        <button type="button" onClick={addEngineerRows}>
           Submit
         </button>
       </form>
@@ -74,11 +59,8 @@ const Engineer = () => {
             <td>Experience</td>
           </tr>
         </thead>
-        <tbody>{engineerrows}</tbody>
+        <tbody>{console.log(displayEngineerRows(engineerRows)[0])}</tbody>
       </table>
-      <EngineerContext.Provider value={namearr}>
-        <Plane />
-      </EngineerContext.Provider>
     </div>
   );
 };

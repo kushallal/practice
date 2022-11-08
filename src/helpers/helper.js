@@ -1,9 +1,9 @@
-export const PlaneFieldsCheck = ({
+export const PlaneFieldsCheck = (
   planename,
   planepaper,
   planeengineer,
-  compdate,
-}) => {
+  compdate
+) => {
   if (planename && planepaper && planeengineer && compdate) {
     if (isnamecorrect(planename)) {
       return true;
@@ -15,7 +15,7 @@ export const PlaneFieldsCheck = ({
   }
 };
 
-export const EngineerFieldsCheck = ({ name, age, exp }) => {
+export const EngineerFieldsCheck = (name, age, exp) => {
   if (name && age > 0 && exp > 0) {
     if (isnamecorrect(name)) {
       return true;
@@ -27,7 +27,7 @@ export const EngineerFieldsCheck = ({ name, age, exp }) => {
   }
 };
 
-const isnamecorrect = ({ name }) => {
+const isnamecorrect = (name) => {
   if (name.length > 1) {
     return true;
   } else {
