@@ -1,100 +1,66 @@
 import React, { useContext } from "react";
 import { useState } from "react";
-import { PlaneFieldsCheck } from "../../helpers/helper";
-
-import PlaneRows from "./PlaneRows";
+import { createPlaneObject, displayOptions } from "../../helpers/PlaneHelper";
+import { displayRows } from "../../helpers/Utils";
 
 const Plane = () => {
-  const papernamearr = [];
-  const namearr = "";
-  const [planerows, setPlanerows] = useState([]);
-  const [planename, setPlanename] = useState("");
-  const [planepaper, setPlanepaper] = useState("");
-  const [planeengineer, setPlaneengineer] = useState("");
-  const [compdate, setCompdate] = useState("");
-
+  const paperTypeArr = ["name1", "name3"];
+  const nameArr = ["kushal"];
+  const [planeRows, setPlaneRows] = useState([]);
+  const addPlaneRow = () => {
+    const planeObj = createPlaneObject(
+      "planeName",
+      "planePaper",
+      "planeEngineer",
+      "compDate"
+    );
+    console.log(planeObj);
+    if (planeObj) {
+      setPlaneRows((old) => [...old, planeObj]);
+    }
+  };
   return (
     <div>
       <form name="planes">
         <h1>Planes Description</h1>
         <label>Plane Name</label>
-        <input
-          value={planename}
-          onChange={(e) => setPlanename(e.target.value)}
-        />
+        <input id="planeName" />
         <br />
         <label>Paper Name</label>
 
-        <select
-          value={planepaper}
-          onChange={(e) => setPlanepaper(e.target.value)}
-          required
-        >
+        <select id="planePaper">
           <option>Select Paper</option>
-          {papernamearr.map((el) => (
-            <option>{el}</option>
-          ))}
+          {displayOptions(paperTypeArr)}
         </select>
         <br />
 
         <label>Engineer Name</label>
 
-        <select
-          value={planeengineer}
-          onChange={(e) => setPlaneengineer(e.target.value)}
-          required
-        >
+        <select id="planeEngineer">
           <option>Select Engineer</option>
-          {namearr.map((el) => (
-            <option>{el}</option>
-          ))}
+          {displayOptions(nameArr)}
         </select>
         <br />
 
         <label>Completion Date</label>
-        <input
-          value={compdate}
-          onChange={(e) => setCompdate(e.target.value)}
-          type="date"
-          required
-        />
+        <input id="compDate" type="date" />
         <br />
 
-        <button
-          type="button"
-          onClick={() => {
-            if (
-              PlaneFieldsCheck(planename, planepaper, planeengineer, compdate)
-            ) {
-              setPlanerows((old) => [
-                <PlaneRows
-                  name={planename}
-                  paper={planepaper}
-                  eng={planeengineer}
-                  cdate={compdate}
-                />,
-                old,
-              ]);
-            } else {
-              alert("fields need prop values");
-            }
-          }}
-        >
+        <button type="button" onClick={addPlaneRow}>
           Submit
         </button>
       </form>
-      <form name="engineers"></form>
 
       <table border="1">
         <thead>
           <tr>
             <td>Plane Names</td>
-            <td>Paper Name</td>
+            <td>Paper Type</td>
             <td>Engineer Name</td>
             <td>Date of Completion</td>
           </tr>
         </thead>
-        <tbody>{planerows}</tbody>
+        <tbody>{displayRows(planeRows)}</tbody>
       </table>
     </div>
   );
