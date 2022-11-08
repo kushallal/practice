@@ -1,36 +1,26 @@
 import React, { useState, createContext } from "react";
 import { createEngineerObject } from "../../helpers/EngineerHelper";
-import { getIdValue } from "../../helpers/Utils";
+import { displayRows } from "../../helpers/Utils";
+
 const Engineer = () => {
   const [engineerRows, setEngineerRows] = useState([
-    {
-      name: "kushal",
-      age: 12,
-      exp: 11,
-    },
+    
   ]);
-  const [tableRows, setTableRows] = useState();
+  
   const addEngineerRows = () => {
-    setEngineerRows((old) => [
-      ...old,
-      createEngineerObject("name", "age", "exp"),
-    ]);
-  };
-  const displayEngineerRows = (arr) => {
-    return arr.map((element) => {
-      const array = Object.values(element);
-      console.log("inside", array);
-      return (
-        <tr>
-          {array.map((el) => (
-            <td>{el}</td>
-          ))}
-        </tr>
-      );
-    });
-  };
+    const engineerObj = createEngineerObject("name", "age", "exp")
+    if (engineerObj){
 
-  console.log();
+      setEngineerRows((old) => [
+        ...old,
+        engineerObj
+      ]);
+    }
+  };
+  
+
+
+  
   return (
     <div>
       <form name="engineers">
@@ -59,7 +49,7 @@ const Engineer = () => {
             <td>Experience</td>
           </tr>
         </thead>
-        <tbody>{console.log(displayEngineerRows(engineerRows)[0])}</tbody>
+        <tbody>{displayRows(engineerRows)}</tbody>
       </table>
     </div>
   );
