@@ -3,7 +3,7 @@ const providePapersOptions = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(papers);
-    }, 5000);
+    }, 1000);
   });
 };
 

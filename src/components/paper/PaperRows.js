@@ -9,19 +9,25 @@ const PaperRows = ({ papers, func }) => {
   //   // localStorage.setItem(JSON.stringify(_deleteRow));
   // };
 
-  const tableBody = papers
-    .map((el) => Object.values(el))
-    .map((el, i) => (
-      <tr key={i}>
-        {el.map((e) => (
-          <td>{e}</td>
-        ))}
-        <td>
-          <button onClick={() => func({ i })}>Delete</button>
-        </td>
-      </tr>
-    ));
+  const tableBody = () => {
+    if (papers != null) {
+      return papers
+        .map((el) => Object.values(el))
+        .map((el, i) => (
+          <tr key={i}>
+            {el.map((e) => (
+              <td>{e}</td>
+            ))}
+            <td>
+              <button onClick={() => func({ i })}>Delete</button>
+            </td>
+          </tr>
+        ));
+    } else {
+      return <tr></tr>;
+    }
+  };
 
-  return <tbody>{tableBody}</tbody>;
+  return <tbody>{tableBody()}</tbody>;
 };
 export default PaperRows;
