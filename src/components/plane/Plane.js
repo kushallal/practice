@@ -1,24 +1,14 @@
-import React, { useContext } from "react";
-import { useState } from "react";
-import { createPlaneObject, displayOptions } from "../../helpers/PlaneHelper";
-import { displayRows } from "../../helpers/Utils";
+import React from "react";
+import PlaneRows from "./PlaneRows";
+import restApiHelper from "../../helpers/RestApiHelper";
+import planeHelper from "../../helpers/PlaneHelper";
 
 const Plane = () => {
-  const paperTypeArr = ["name1", "name3"];
-  const nameArr = ["kushal"];
-  const [planeRows, setPlaneRows] = useState([]);
-  const addPlaneRow = () => {
-    const planeObj = createPlaneObject(
-      "planeName",
-      "planePaper",
-      "planeEngineer",
-      "compDate"
-    );
-    console.log(planeObj);
-    if (planeObj) {
-      setPlaneRows((old) => [...old, planeObj]);
-    }
-  };
+  const _papers = restApiHelper._getLocalItems("papers");
+
+  const _engineers = restApiHelper._getLocalItems("engineers");
+
+  const { planes, savePlane, deletePlane } = planeHelper.usePlane();
   return (
     <div>
       <form name="planes">
@@ -30,7 +20,11 @@ const Plane = () => {
 
         <select id="planePaper">
           <option>Select Paper</option>
-          {displayOptions(paperTypeArr)}
+          {_papers
+            .map((el) => Object.values(el))
+            .map((el, i) => (
+              <option key={i}>{el[0]}</option>
+            ))}
         </select>
         <br />
 
@@ -38,7 +32,11 @@ const Plane = () => {
 
         <select id="planeEngineer">
           <option>Select Engineer</option>
-          {displayOptions(nameArr)}
+          {_engineers
+            .map((el) => Object.values(el))
+            .map((el, i) => (
+              <option key={i}>{el[0]}</option>
+            ))}
         </select>
         <br />
 
@@ -46,7 +44,7 @@ const Plane = () => {
         <input id="compDate" type="date" />
         <br />
 
-        <button type="button" onClick={addPlaneRow}>
+        <button type="button" onClick={savePlane}>
           Submit
         </button>
       </form>
@@ -58,9 +56,10 @@ const Plane = () => {
             <td>Paper Type</td>
             <td>Engineer Name</td>
             <td>Date of Completion</td>
+            <td>Delete</td>
           </tr>
         </thead>
-        <tbody>{displayRows(planeRows)}</tbody>
+        <PlaneRows planes={planes} func={deletePlane} />
       </table>
     </div>
   );

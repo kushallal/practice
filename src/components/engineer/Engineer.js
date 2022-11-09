@@ -1,26 +1,10 @@
-import React, { useState, createContext } from "react";
-import { createEngineerObject } from "../../helpers/EngineerHelper";
-import { displayRows } from "../../helpers/Utils";
-
+import React from "react";
+import engineerHelper from "../../helpers/EngineerHelper";
+import EngineerRows from "./EngineerRows";
 const Engineer = () => {
-  const [engineerRows, setEngineerRows] = useState([
-    
-  ]);
-  
-  const addEngineerRows = () => {
-    const engineerObj = createEngineerObject("name", "age", "exp")
-    if (engineerObj){
+  const { engineers, saveEngineer, deleteEngineer } =
+    engineerHelper.useEngineers();
 
-      setEngineerRows((old) => [
-        ...old,
-        engineerObj
-      ]);
-    }
-  };
-  
-
-
-  
   return (
     <div>
       <form name="engineers">
@@ -36,8 +20,7 @@ const Engineer = () => {
         <label>Experience</label>
         <input type="numbers" id="exp" required />
         <br />
-        <button type="button" onClick={addEngineerRows}> 
-
+        <button type="button" onClick={saveEngineer}>
           Submit
         </button>
       </form>
@@ -48,9 +31,10 @@ const Engineer = () => {
             <td>Name</td>
             <td>Age</td>
             <td>Experience</td>
+            <td>Delete</td>
           </tr>
         </thead>
-        <tbody>{displayRows(engineerRows)}</tbody>
+        <EngineerRows engineers={engineers} func={deleteEngineer} />
       </table>
     </div>
   );
