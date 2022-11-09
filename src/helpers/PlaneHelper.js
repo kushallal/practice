@@ -53,5 +53,12 @@ const usePlane = () => {
 
   return { planes, savePlane, deletePlane };
 };
+const _displayOptions = (_items) => {
+  if (_items != null) {
+    return _items
+      .map((el) => Object.values(el))
+      .map((el, i) => <option key={i}>{el[0]}</option>);
+  } else return <option>Select Option</option>;
+};
 
-export default { usePlane };
+export default { usePlane, _displayOptions };

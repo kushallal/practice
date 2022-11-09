@@ -8,13 +8,6 @@ const Plane = () => {
 
   const _engineers = restApiHelper._getLocalItems("engineers");
 
-  const _displayOptions = (_items) => {
-    if (_items != null) {
-      return _items
-        .map((el) => Object.values(el))
-        .map((el, i) => <option key={i}>{el[0]}</option>);
-    } else return <option>Select Engineer</option>;
-  };
   const { planes, savePlane, deletePlane } = planeHelper.usePlane();
   return (
     <div>
@@ -25,12 +18,14 @@ const Plane = () => {
         <br />
         <label>Paper Name</label>
 
-        <select id="planePaper">{_displayOptions(_papers)}</select>
+        <select id="planePaper">{planeHelper._displayOptions(_papers)}</select>
         <br />
 
         <label>Engineer Name</label>
 
-        <select id="planeEngineer">{_displayOptions(_engineers)}</select>
+        <select id="planeEngineer">
+          {planeHelper._displayOptions(_engineers)}
+        </select>
         <br />
 
         <label>Completion Date</label>

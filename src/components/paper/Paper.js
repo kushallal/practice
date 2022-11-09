@@ -21,7 +21,6 @@ const Paper = () => {
   }, []);
 
   const { papers, savePaper, deletePaper } = paperHelper.usePapers();
-  console.log();
 
   return (
     <div>
