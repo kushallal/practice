@@ -60,12 +60,11 @@ const usePlane = () => {
   return { planes, savePlane, deletePlane };
 };
 const displayEngineerOptions = () => {
-  const { engineers, saveEngineer, deleteEngineer } =
-    engineerHelper.useEngineers();
+  const { engineers } = engineerHelper.useEngineers();
   return engineers.map((engineerObj) => <option>{engineerObj.name}</option>);
 };
 const displayPaperOptions = () => {
-  const { papers, savePaper, deletePaper } = paperHelper.usePapers();
+  const { papers } = paperHelper.usePapers();
 
   return papers.map((paperObj) => <option>{paperObj.type}</option>);
 };
