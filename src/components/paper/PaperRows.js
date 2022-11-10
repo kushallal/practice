@@ -1,6 +1,6 @@
 import React from "react";
 
-const PaperRows = ({ papers, func }) => {
+const PaperRows = ({ papers, removePaperRow }) => {
   // const deleteRow = (index) => {
   //   const _papers = papers.splice(index, 1);
   //   console.log(_papers);
@@ -11,18 +11,18 @@ const PaperRows = ({ papers, func }) => {
 
   const tableBody = () => {
     if (papers != null) {
-      return papers
-        .map((el) => Object.values(el))
-        .map((el, i) => (
-          <tr key={i}>
-            {el.map((e) => (
-              <td>{e}</td>
-            ))}
+      return papers.map((paperObj, i) => {
+        return (
+          <tr>
+            <td>{paperObj.type}</td>
+            <td>{paperObj.length}</td>
+            <td>{paperObj.height}</td>
             <td>
-              <button onClick={() => func({ i })}>Delete</button>
+              <button onClick={() => removePaperRow({ i })}>Delete</button>
             </td>
           </tr>
-        ));
+        );
+      });
     } else {
       return <tr></tr>;
     }

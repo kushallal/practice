@@ -1,41 +1,26 @@
 import React, { useState, useEffect } from "react";
 import PaperRows from "./PaperRows";
 import paperHelper from "../../helpers/PaperHelper";
-import restApiHelper from "../../helpers/RestApiHelper";
+import constants from "../../Constants";
 
 const Paper = () => {
-  const [paperOptions, setPaperOptions] = useState([]);
-  useEffect(() => {
-    restApiHelper
-      .getPapersOptions()
-      .then((_options) =>
-        setPaperOptions(
-          _options.map((el, i) => (
-            <option key={i} value={el}>
-              {el}
-            </option>
-          ))
-        )
-      )
-      .catch((err) => alert.error(err));
-  }, []);
-
-  const { papers, savePaper, deletePaper } = paperHelper.usePapers();
+  const { paperOptions, papers, savePaper, deletePaper } =
+    paperHelper.usePapers();
 
   return (
     <div>
-      <form name="paperdescription">
+      <form>
         <h1>Paper Description</h1>
         <label>Paper Type</label>
-        <select id="paperType">{paperOptions}</select>
+        <select id={constants.id.papers.type}>{paperOptions}</select>
         <br />
 
         <label>Paper Length</label>
-        <input id="paperLength" type="number" required />
+        <input id={constants.id.papers.length} type="number" required />
         <br />
 
         <label>Paper Height</label>
-        <input id="paperHeight" type="number" required />
+        <input id={constants.id.papers.height} type="number" required />
         <br />
 
         <button type="button" onClick={savePaper}>
@@ -43,7 +28,7 @@ const Paper = () => {
         </button>
       </form>
 
-      <table border="1">
+      <table>
         <thead>
           <tr>
             <td>Paper Type</td>
@@ -52,7 +37,7 @@ const Paper = () => {
             <td>Delete</td>
           </tr>
         </thead>
-        <PaperRows papers={papers} func={deletePaper} />
+        <PaperRows papers={papers} removePaperRow={deletePaper} />
       </table>
     </div>
   );

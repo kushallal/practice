@@ -1,6 +1,8 @@
 import React from "react";
 import engineerHelper from "../../helpers/EngineerHelper";
 import EngineerRows from "./EngineerRows";
+import constants from "../../Constants";
+
 const Engineer = () => {
   const { engineers, saveEngineer, deleteEngineer } =
     engineerHelper.useEngineers();
@@ -10,22 +12,22 @@ const Engineer = () => {
       <form name="engineers">
         <h1>Engineer Description</h1>
         <label>Name</label>
-        <input type="text" id="name" required />
+        <input type="text" id={constants.id.engineers.name} required />
 
         <br />
         <label>Age</label>
-        <input type="numbers" id="age" required />
+        <input type="numbers" id={constants.id.engineers.age} required />
         <br />
 
         <label>Experience</label>
-        <input type="numbers" id="exp" required />
+        <input type="numbers" id={constants.id.engineers.experience} required />
         <br />
         <button type="button" onClick={saveEngineer}>
           Submit
         </button>
       </form>
 
-      <table border="1">
+      <table>
         <thead>
           <tr>
             <td>Name</td>
@@ -34,7 +36,10 @@ const Engineer = () => {
             <td>Delete</td>
           </tr>
         </thead>
-        <EngineerRows engineers={engineers} func={deleteEngineer} />
+        <EngineerRows
+          engineers={engineers}
+          removeEngineerRow={deleteEngineer}
+        />
       </table>
     </div>
   );

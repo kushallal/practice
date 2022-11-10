@@ -1,8 +1,9 @@
-const papers = ["Nepali Paper", "White Paper", "Blotting Paper"];
+import constants from "../Constants";
+
 const providePapersOptions = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(papers);
+      resolve(constants.paperOptions);
     }, 1000);
   });
 };
@@ -11,16 +12,16 @@ const getPapersOptions = async () => {
   const paperName = await providePapersOptions();
   return paperName;
 };
-const _getLocalItems = (key) => {
-  const _items = JSON.parse(localStorage.getItem(key));
-  return _items;
+const getItems = (key) => {
+  const items = JSON.parse(localStorage.getItem(key));
+  return items;
 };
-const _setLocalItems = (key, value) => {
+const setItems = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
 export default {
   providePapersOptions,
   getPapersOptions,
-  _getLocalItems,
-  _setLocalItems,
+  getItems,
+  setItems,
 };

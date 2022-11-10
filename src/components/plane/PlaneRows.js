@@ -1,20 +1,21 @@
 import React from "react";
 
-const PlaneRows = ({ planes, func }) => {
+const PlaneRows = ({ planes, removePlaneRow }) => {
   const tableBody = () => {
     if (planes != null) {
-      return planes
-        .map((el) => Object.values(el))
-        .map((el, i) => (
+      return planes.map((planeObject, i) => {
+        return (
           <tr>
-            {el.map((e) => (
-              <td>{e}</td>
-            ))}
+            <td> {planeObject.planeName}</td>
+            <td>{planeObject.planePaper}</td>
+            <td>{planeObject.planeEngineer}</td>
+            <td>{planeObject.completionDate}</td>
             <td>
-              <button onClick={() => func({ i })}>Delete</button>
+              <button onClick={() => removePlaneRow({ i })}>Delete</button>
             </td>
           </tr>
-        ));
+        );
+      });
     } else {
       return <tr></tr>;
     }

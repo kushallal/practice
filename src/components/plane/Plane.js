@@ -1,35 +1,34 @@
 import React from "react";
 import PlaneRows from "./PlaneRows";
-import restApiHelper from "../../helpers/RestApiHelper";
 import planeHelper from "../../helpers/PlaneHelper";
+import constants from "../../Constants";
 
 const Plane = () => {
-  const _papers = restApiHelper._getLocalItems("papers");
-
-  const _engineers = restApiHelper._getLocalItems("engineers");
-
   const { planes, savePlane, deletePlane } = planeHelper.usePlane();
+
   return (
     <div>
-      <form name="planes">
+      <form>
         <h1>Planes Description</h1>
         <label>Plane Name</label>
-        <input id="planeName" />
+        <input id={constants.id.planes.planeName} />
         <br />
         <label>Paper Name</label>
 
-        <select id="planePaper">{planeHelper._displayOptions(_papers)}</select>
+        <select id={constants.id.planes.planePaper}>
+          {planeHelper.displayPaperOptions()}
+        </select>
         <br />
 
         <label>Engineer Name</label>
 
-        <select id="planeEngineer">
-          {planeHelper._displayOptions(_engineers)}
+        <select id={constants.id.planes.planeEngineer}>
+          {planeHelper.displayEngineerOptions()}
         </select>
         <br />
 
         <label>Completion Date</label>
-        <input id="compDate" type="date" />
+        <input id={constants.id.planes.completionDate} type="date" />
         <br />
 
         <button type="button" onClick={savePlane}>
@@ -37,7 +36,7 @@ const Plane = () => {
         </button>
       </form>
 
-      <table border="1">
+      <table>
         <thead>
           <tr>
             <td>Plane Names</td>
@@ -47,7 +46,7 @@ const Plane = () => {
             <td>Delete</td>
           </tr>
         </thead>
-        <PlaneRows planes={planes} func={deletePlane} />
+        <PlaneRows planes={planes} removePlaneRow={deletePlane} />
       </table>
     </div>
   );

@@ -1,34 +1,36 @@
 import { useState, useEffect } from "react";
 import utils from "./Utils";
 import restApiHelper from "./RestApiHelper";
+import constants from "../Constants";
+
 const useEngineers = () => {
   const [engineers, setEngineers] = useState([]);
   useEffect(() => {
-    getEngineersLocally();
+    _getEngineersLocally();
   }, []);
 
-  const getEngineersLocally = () => {
-    const _engineers = restApiHelper._getLocalItems("engineers");
+  const _getEngineersLocally = () => {
+    const _engineers = restApiHelper.getItems("engineers");
     setEngineers(_engineers);
   };
-  const saveEngineersLocally = (engineerObj) => {
-    getEngineersLocally();
+  const _saveEngineersLocally = (engineerObj) => {
+    _getEngineersLocally();
     if (engineers != null) {
       const _engineers = [engineerObj, ...engineers];
-      restApiHelper._setLocalItems("engineers", _engineers);
+      restApiHelper.setItems("engineers", _engineers);
     } else {
       const _engineers = [engineerObj];
-      restApiHelper._setLocalItems("engineers", _engineers);
+      restApiHelper.setItems("engineers", _engineers);
     }
-    getEngineersLocally();
+    _getEngineersLocally();
   };
 
   const saveEngineer = () => {
-    const valueName = utils.getIdValue("name");
-    const valueAge = utils.getIdValue("age");
-    const valueExp = utils.getIdValue("exp");
+    const valueName = utils.getIdValue(constants.id.engineers.name);
+    const valueAge = utils.getIdValue(constants.id.engineers.age);
+    const valueExp = utils.getIdValue(constants.id.engineers.experience);
     if (valueAge >= 18 && valueExp >= 2 && valueName.length > 1) {
-      saveEngineersLocally({
+      _saveEngineersLocally({
         name: valueName,
         age: valueAge,
         experience: valueExp,
@@ -40,7 +42,7 @@ const useEngineers = () => {
   };
   const deleteEngineer = (index) => {
     engineers.splice(index, 1);
-    restApiHelper._setLocalItems("engineers", engineers);
+    restApiHelper.setItems("engineers", engineers);
     window.location.reload();
   };
   return { engineers, saveEngineer, deleteEngineer };

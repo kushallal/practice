@@ -1,40 +1,46 @@
 import { useState, useEffect } from "react";
 import utils from "./Utils";
 import restApiHelper from "./RestApiHelper";
+import paperHelper from "./PaperHelper";
+import engineerHelper from "./EngineerHelper";
+import constants from "../Constants";
+
 const usePlane = () => {
   const [planes, setPlanes] = useState([]);
   useEffect(() => {
-    getPlanesLocally();
+    _getPlanesLocally();
   }, []);
 
-  const getPlanesLocally = () => {
-    const _planes = restApiHelper._getLocalItems("planes");
+  const _getPlanesLocally = () => {
+    const _planes = restApiHelper.getItems("planes");
     setPlanes(_planes);
   };
-  const savePlanesLocally = (planeObj) => {
-    getPlanesLocally();
+  const _savePlanesLocally = (planeObj) => {
+    _getPlanesLocally();
     if (planes != null) {
       const _planes = [planeObj, ...planes];
-      restApiHelper._setLocalItems("planes", _planes);
+      restApiHelper.setItems("planes", _planes);
     } else {
       const _planes = [planeObj];
-      restApiHelper._setLocalItems("planes", _planes);
+      restApiHelper.setItems("planes", _planes);
     }
-    getPlanesLocally();
+    _getPlanesLocally();
   };
 
   const savePlane = () => {
-    const valuePlaneName = utils.getIdValue("planeName");
-    const valuePlanePaper = utils.getIdValue("planePaper");
-    const valuePlaneEngineer = utils.getIdValue("planeEngineer");
-    const valueCompDate = utils.getIdValue("compDate");
+    const valuePlaneName = utils.getIdValue(constants.id.planes.planeName);
+    const valuePlanePaper = utils.getIdValue(constants.id.planes.planePaper);
+    const valuePlaneEngineer = utils.getIdValue(
+      constants.id.planes.planeEngineer
+    );
+    const valueCompDate = utils.getIdValue(constants.id.planes.completionDate);
     if (
       valuePlaneName.length > 1 &&
       valuePlanePaper !== "Select Paper" &&
       valuePlaneEngineer !== "Select Engineeer" &&
       valueCompDate
     ) {
-      savePlanesLocally({
+      _savePlanesLocally({
         planeName: valuePlaneName,
         planePaper: valuePlanePaper,
         planeEngineer: valuePlaneEngineer,
@@ -47,18 +53,21 @@ const usePlane = () => {
   };
   const deletePlane = (index) => {
     planes.splice(index, 1);
-    restApiHelper._setLocalItems("planes", planes);
+    restApiHelper.setItems("planes", planes);
     window.location.reload();
   };
 
   return { planes, savePlane, deletePlane };
 };
-const _displayOptions = (_items) => {
-  if (_items != null) {
-    return _items
-      .map((el) => Object.values(el))
-      .map((el, i) => <option key={i}>{el[0]}</option>);
-  } else return <option>Select Option</option>;
+const displayEngineerOptions = () => {
+  const { engineers, saveEngineer, deleteEngineer } =
+    engineerHelper.useEngineers();
+  return engineers.map((engineerObj) => <option>{engineerObj.name}</option>);
+};
+const displayPaperOptions = () => {
+  const { papers, savePaper, deletePaper } = paperHelper.usePapers();
+
+  return papers.map((paperObj) => <option>{paperObj.type}</option>);
 };
 
-export default { usePlane, _displayOptions };
+export default { usePlane, displayEngineerOptions, displayPaperOptions };

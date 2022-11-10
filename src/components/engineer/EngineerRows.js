@@ -1,20 +1,18 @@
 import React from "react";
 
-const EngineerRows = ({ engineers, func }) => {
+const EngineerRows = ({ engineers, removeEngineerRow }) => {
   const tableBody = () => {
     if (engineers != null) {
-      return engineers
-        .map((el) => Object.values(el))
-        .map((el, i) => (
-          <tr>
-            {el.map((e) => (
-              <td>{e}</td>
-            ))}
-            <td>
-              <button onClick={() => func({ i })}>Delete</button>
-            </td>
-          </tr>
-        ));
+      return engineers.map((engineerObj, i) => (
+        <tr>
+          <td>{engineerObj.name}</td>
+          <td>{engineerObj.age}</td>
+          <td>{engineerObj.experience}</td>
+          <td>
+            <button onClick={() => removeEngineerRow({ i })}>Delete</button>
+          </td>
+        </tr>
+      ));
     } else {
       return <tr></tr>;
     }
