@@ -4,12 +4,17 @@ const EngineerRows = ({ engineers, removeEngineerRow }) => {
   const tableBody = () => {
     if (engineers != null) {
       return engineers.map((engineerObj, i) => (
-        <tr>
+        <tr key={i}>
           <td>{engineerObj.name}</td>
           <td>{engineerObj.age}</td>
           <td>{engineerObj.experience}</td>
           <td>
-            <button onClick={() => removeEngineerRow({ i })}>Delete</button>
+            <button
+              className="btn--delete"
+              onClick={() => removeEngineerRow({ i })}
+            >
+              Delete
+            </button>
           </td>
         </tr>
       ));
@@ -17,7 +22,7 @@ const EngineerRows = ({ engineers, removeEngineerRow }) => {
       return <tr></tr>;
     }
   };
-  return <tbody>{tableBody()}</tbody>;
+  return <tbody className="table__body">{tableBody()}</tbody>;
 };
 
 export default EngineerRows;

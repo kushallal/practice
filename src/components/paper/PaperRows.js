@@ -1,24 +1,21 @@
 import React from "react";
 
 const PaperRows = ({ papers, removePaperRow }) => {
-  // const deleteRow = (index) => {
-  //   const _papers = papers.splice(index, 1);
-  //   console.log(_papers);
-  //   console.log(index);
-  //   // const _deleteRow = _papers.splice(index, 1);
-  //   // localStorage.setItem(JSON.stringify(_deleteRow));
-  // };
-
   const tableBody = () => {
     if (papers != null) {
       return papers.map((paperObj, i) => {
         return (
-          <tr>
+          <tr key={i}>
             <td>{paperObj.type}</td>
             <td>{paperObj.length}</td>
             <td>{paperObj.height}</td>
             <td>
-              <button onClick={() => removePaperRow({ i })}>Delete</button>
+              <button
+                className="btn--delete"
+                onClick={() => removePaperRow({ i })}
+              >
+                Delete
+              </button>
             </td>
           </tr>
         );
@@ -28,6 +25,6 @@ const PaperRows = ({ papers, removePaperRow }) => {
     }
   };
 
-  return <tbody>{tableBody()}</tbody>;
+  return <tbody className="table__body">{tableBody()}</tbody>;
 };
 export default PaperRows;

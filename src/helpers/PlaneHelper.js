@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import utils from "./Utils";
 import restApiHelper from "./RestApiHelper";
-import paperHelper from "./PaperHelper";
+import { id } from "../Constants";
 import engineerHelper from "./EngineerHelper";
-import constants from "../Constants";
+import paperHelper from "./PaperHelper";
 
 const usePlane = () => {
   const [planes, setPlanes] = useState([]);
@@ -11,29 +11,11 @@ const usePlane = () => {
     _getPlanesLocally();
   }, []);
 
-  const _getPlanesLocally = () => {
-    const _planes = restApiHelper.getItems("planes");
-    setPlanes(_planes);
-  };
-  const _savePlanesLocally = (planeObj) => {
-    _getPlanesLocally();
-    if (planes != null) {
-      const _planes = [planeObj, ...planes];
-      restApiHelper.setItems("planes", _planes);
-    } else {
-      const _planes = [planeObj];
-      restApiHelper.setItems("planes", _planes);
-    }
-    _getPlanesLocally();
-  };
-
   const savePlane = () => {
-    const valuePlaneName = utils.getIdValue(constants.id.planes.planeName);
-    const valuePlanePaper = utils.getIdValue(constants.id.planes.planePaper);
-    const valuePlaneEngineer = utils.getIdValue(
-      constants.id.planes.planeEngineer
-    );
-    const valueCompDate = utils.getIdValue(constants.id.planes.completionDate);
+    const valuePlaneName = utils.getIdValue(id.planes.planeName);
+    const valuePlanePaper = utils.getIdValue(id.planes.planePaper);
+    const valuePlaneEngineer = utils.getIdValue(id.planes.planeEngineer);
+    const valueCompDate = utils.getIdValue(id.planes.completionDate);
     if (
       valuePlaneName.length > 1 &&
       valuePlanePaper !== "Select Paper" &&
@@ -51,22 +33,52 @@ const usePlane = () => {
     }
     window.location.reload();
   };
+
+  const _savePlanesLocally = (planeObj) => {
+    if (planes != null) {
+      const _planes = [planeObj, ...planes];
+      restApiHelper.setItems("planes", _planes);
+    } else {
+      const _planes = [planeObj];
+      restApiHelper.setItems("planes", _planes);
+    }
+    _getPlanesLocally();
+  };
+
+  const _getPlanesLocally = () => {
+    const _planes = restApiHelper.getItems("planes");
+    setPlanes(_planes);
+  };
+
   const deletePlane = (index) => {
-    planes.splice(index, 1);
-    restApiHelper.setItems("planes", planes);
+    const planesUpdate = planes;
+    planesUpdate.splice(index, 1);
+    setPlanes(planesUpdate);
+    restApiHelper.setItems("planes", planesUpdate);
     window.location.reload();
   };
 
-  return { planes, savePlane, deletePlane };
-};
-const displayEngineerOptions = () => {
-  const { engineers } = engineerHelper.useEngineers();
-  return engineers.map((engineerObj) => <option>{engineerObj.name}</option>);
-};
-const displayPaperOptions = () => {
-  const { papers } = paperHelper.usePapers();
+  const displayEngineerOptions = () => {
+    const { engineers } = engineerHelper.useEngineers();
 
-  return papers.map((paperObj) => <option>{paperObj.type}</option>);
+    return engineers.map((engineerObj) => <option>{engineerObj.name}</option>);
+  };
+
+  const displayPaperOptions = () => {
+    const { papers } = paperHelper.usePapers();
+
+    return papers.map((paperObj, i) => (
+      <option key={i}>{paperObj.type}</option>
+    ));
+  };
+
+  return {
+    planes,
+    savePlane,
+    deletePlane,
+    displayPaperOptions,
+    displayEngineerOptions,
+  };
 };
 
-export default { usePlane, displayEngineerOptions, displayPaperOptions };
+export default { usePlane };

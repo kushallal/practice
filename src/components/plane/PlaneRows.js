@@ -5,13 +5,18 @@ const PlaneRows = ({ planes, removePlaneRow }) => {
     if (planes != null) {
       return planes.map((planeObject, i) => {
         return (
-          <tr>
+          <tr key={i}>
             <td> {planeObject.planeName}</td>
             <td>{planeObject.planePaper}</td>
             <td>{planeObject.planeEngineer}</td>
             <td>{planeObject.completionDate}</td>
             <td>
-              <button onClick={() => removePlaneRow({ i })}>Delete</button>
+              <button
+                className="btn--delete"
+                onClick={() => removePlaneRow({ i })}
+              >
+                Delete
+              </button>
             </td>
           </tr>
         );
@@ -21,7 +26,7 @@ const PlaneRows = ({ planes, removePlaneRow }) => {
     }
   };
 
-  return <tbody>{tableBody()}</tbody>;
+  return <tbody className="table__body">{tableBody()}</tbody>;
 };
 
 export default PlaneRows;

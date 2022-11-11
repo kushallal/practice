@@ -1,33 +1,33 @@
 import React from "react";
 import engineerHelper from "../../helpers/EngineerHelper";
 import EngineerRows from "./EngineerRows";
-import constants from "../../Constants";
+import { id } from "../../Constants";
 
 const Engineer = () => {
   const { engineers, saveEngineer, deleteEngineer } =
     engineerHelper.useEngineers();
 
   return (
-    <div>
-      <form name="engineers">
+    <div className="form">
+      <form className="form__element">
         <h1>Engineer Description</h1>
         <label>Name</label>
-        <input type="text" id={constants.id.engineers.name} required />
+        <input type="text" id={id.engineers.name} required />
 
         <br />
         <label>Age</label>
-        <input type="numbers" id={constants.id.engineers.age} required />
+        <input type="numbers" id={id.engineers.age} required />
         <br />
 
         <label>Experience</label>
-        <input type="numbers" id={constants.id.engineers.experience} required />
+        <input type="numbers" id={id.engineers.experience} required />
         <br />
-        <button type="button" onClick={saveEngineer}>
+        <button className="btn--submit" type="button" onClick={saveEngineer}>
           Submit
         </button>
       </form>
 
-      <table>
+      <table className="table__element">
         <thead>
           <tr>
             <td>Name</td>

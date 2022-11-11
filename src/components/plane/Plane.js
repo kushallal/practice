@@ -1,42 +1,44 @@
 import React from "react";
 import PlaneRows from "./PlaneRows";
 import planeHelper from "../../helpers/PlaneHelper";
-import constants from "../../Constants";
+import { id } from "../../Constants";
 
 const Plane = () => {
-  const { planes, savePlane, deletePlane } = planeHelper.usePlane();
+  const {
+    planes,
+    savePlane,
+    deletePlane,
+    displayPaperOptions,
+    displayEngineerOptions,
+  } = planeHelper.usePlane();
 
   return (
-    <div>
-      <form>
+    <div className="form">
+      <form className="form__element">
         <h1>Planes Description</h1>
         <label>Plane Name</label>
-        <input id={constants.id.planes.planeName} />
+        <input id={id.planes.planeName} />
         <br />
         <label>Paper Name</label>
 
-        <select id={constants.id.planes.planePaper}>
-          {planeHelper.displayPaperOptions()}
-        </select>
+        <select id={id.planes.planePaper}>{displayPaperOptions()}</select>
         <br />
 
         <label>Engineer Name</label>
 
-        <select id={constants.id.planes.planeEngineer}>
-          {planeHelper.displayEngineerOptions()}
-        </select>
+        <select id={id.planes.planeEngineer}>{displayEngineerOptions()}</select>
         <br />
 
         <label>Completion Date</label>
-        <input id={constants.id.planes.completionDate} type="date" />
+        <input id={id.planes.completionDate} type="date" />
         <br />
 
-        <button type="button" onClick={savePlane}>
+        <button className="btn--submit" type="button" onClick={savePlane}>
           Submit
         </button>
       </form>
 
-      <table>
+      <table className="table__element">
         <thead>
           <tr>
             <td>Plane Names</td>
