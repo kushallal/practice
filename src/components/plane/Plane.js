@@ -2,8 +2,12 @@ import React from "react";
 import PlaneRows from "./PlaneRows";
 import planeHelper from "../../helpers/PlaneHelper";
 import { id } from "../../Constants";
+import classNames from "classnames";
+import { useContext } from "react";
+import { ThemeContext } from "../../Context";
 
 const Plane = () => {
+  const { theme } = useContext(ThemeContext);
   const {
     planes,
     savePlane,
@@ -13,24 +17,53 @@ const Plane = () => {
   } = planeHelper.usePlane();
 
   return (
-    <div className="form">
+    <div className={classNames({ form__light: !theme }, { form__dark: theme })}>
       <form className="form__element">
         <h1>Planes Description</h1>
         <label>Plane Name</label>
-        <input id={id.planes.planeName} />
+        <input
+          className={classNames(
+            { input__light: !theme },
+            { input__dark: theme }
+          )}
+          id={id.planes.planeName}
+        />
         <br />
         <label>Paper Name</label>
 
-        <select id={id.planes.planePaper}>{displayPaperOptions()}</select>
+        <select
+          className={classNames(
+            { input__light: !theme },
+            { input__dark: theme }
+          )}
+          id={id.planes.planePaper}
+        >
+          {displayPaperOptions()}
+        </select>
         <br />
 
         <label>Engineer Name</label>
 
-        <select id={id.planes.planeEngineer}>{displayEngineerOptions()}</select>
+        <select
+          className={classNames(
+            { input__light: !theme },
+            { input__dark: theme }
+          )}
+          id={id.planes.planeEngineer}
+        >
+          {displayEngineerOptions()}
+        </select>
         <br />
 
         <label>Completion Date</label>
-        <input id={id.planes.completionDate} type="date" />
+        <input
+          className={classNames(
+            { input__light: !theme },
+            { input__dark: theme }
+          )}
+          id={id.planes.completionDate}
+          type="date"
+        />
         <br />
 
         <button className="btn--submit" type="button" onClick={savePlane}>

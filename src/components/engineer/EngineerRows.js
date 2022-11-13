@@ -1,6 +1,10 @@
 import React from "react";
+import classNames from "classnames";
+import { useContext } from "react";
+import { ThemeContext } from "../../Context";
 
 const EngineerRows = ({ engineers, removeEngineerRow }) => {
+  const { theme } = useContext(ThemeContext);
   const tableBody = () => {
     if (engineers != null) {
       return engineers.map((engineerObj, i) => (
@@ -22,7 +26,16 @@ const EngineerRows = ({ engineers, removeEngineerRow }) => {
       return <tr></tr>;
     }
   };
-  return <tbody className="table__body">{tableBody()}</tbody>;
+  return (
+    <tbody
+      className={classNames(
+        { table__body__light: !theme },
+        { table__body__dark: theme }
+      )}
+    >
+      {tableBody()}
+    </tbody>
+  );
 };
 
 export default EngineerRows;
