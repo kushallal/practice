@@ -1,6 +1,10 @@
 import React from "react";
+import classNames from "classnames";
+import { useContext } from "react";
+import { ThemeContext } from "../../Context";
 
 const PlaneRows = ({ planes, removePlaneRow }) => {
+  const { theme } = useContext(ThemeContext);
   const tableBody = () => {
     if (planes != null) {
       return planes.map((planeObject, i) => {
@@ -26,7 +30,16 @@ const PlaneRows = ({ planes, removePlaneRow }) => {
     }
   };
 
-  return <tbody className="table__body">{tableBody()}</tbody>;
+  return (
+    <tbody
+      className={classNames(
+        { table__body__light: !theme },
+        { table__body__dark: theme }
+      )}
+    >
+      {tableBody()}
+    </tbody>
+  );
 };
 
 export default PlaneRows;
