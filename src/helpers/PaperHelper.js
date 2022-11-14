@@ -35,6 +35,7 @@ export const usePapers = () => {
     } else {
       alert("Enter Valid inputs");
     }
+    window.location.reload();
   };
 
   const _savePapersLocally = (paperObj) => {

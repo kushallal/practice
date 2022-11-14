@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import utils from "./Utils";
 import restApiHelper from "./RestApiHelper";
 import { id } from "../Constants";
+import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 
 const useEngineers = () => {
   const [engineers, setEngineers] = useState([]);
@@ -23,6 +24,7 @@ const useEngineers = () => {
     } else {
       alert("Enter Valid inputs");
     }
+    window.location.reload();
   };
 
   const _saveEngineersLocally = (engineerObj) => {
@@ -38,9 +40,9 @@ const useEngineers = () => {
 
   const _getEngineersLocally = () => {
     const _engineers = restApiHelper.getItems("engineers");
+
     setEngineers(_engineers);
   };
-
   const deleteEngineer = (index) => {
     const engineersUpdatedValue = engineers;
     engineersUpdatedValue.splice(index, 1);

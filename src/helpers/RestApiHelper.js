@@ -22,8 +22,17 @@ const setItems = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
 
+export const getThemeValue = () => {
+  const themeValue = JSON.parse(localStorage.getItem("themeDark"));
+  return themeValue;
+};
+export const setThemeValue = (themeValue) => {
+  localStorage.setItem("themeDark", JSON.stringify(themeValue));
+};
 export default {
   getPapersOptions,
   getItems,
   setItems,
+  getThemeValue,
+  setThemeValue,
 };

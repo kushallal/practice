@@ -47,7 +47,9 @@ const usePlane = () => {
 
   const _getPlanesLocally = () => {
     const _planes = restApiHelper.getItems("planes");
-    setPlanes(_planes);
+    if (_planes !== null) {
+      setPlanes(_planes);
+    }
   };
 
   const deletePlane = (index) => {
@@ -60,16 +62,25 @@ const usePlane = () => {
 
   const displayEngineerOptions = () => {
     const { engineers } = engineerHelper.useEngineers();
-
-    return engineers.map((engineerObj) => <option>{engineerObj.name}</option>);
+    if (engineers) {
+      return engineers.map((engineerObj, i) => (
+        <option key={i}>{engineerObj.name}</option>
+      ));
+    } else {
+      return [];
+    }
   };
 
   const displayPaperOptions = () => {
     const { papers } = paperHelper.usePapers();
 
-    return papers.map((paperObj, i) => (
-      <option key={i}>{paperObj.type}</option>
-    ));
+    if (papers) {
+      return papers.map((paperObj, i) => (
+        <option key={i}>{paperObj.type}</option>
+      ));
+    } else {
+      return [];
+    }
   };
 
   return {
