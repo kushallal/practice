@@ -35,7 +35,6 @@ export const usePapers = () => {
     } else {
       alert("Enter Valid inputs");
     }
-    window.location.reload();
   };
 
   const _savePapersLocally = (paperObj) => {
@@ -51,15 +50,18 @@ export const usePapers = () => {
 
   const _getPapersLocally = () => {
     const _papers = restApiHelper.getItems("papers");
-    setPapers(_papers);
+    try {
+      setPapers(_papers);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const deletePaper = (index) => {
     const papersUpdatedValue = papers;
     papersUpdatedValue.splice(index, 1);
-    setPapers(papersUpdatedValue);
     restApiHelper.setItems("papers", papersUpdatedValue);
-    window.location.reload();
+    _getPapersLocally();
   };
 
   return { paperOptions, papers, savePaper, deletePaper };

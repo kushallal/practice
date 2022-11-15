@@ -31,7 +31,6 @@ const usePlane = () => {
     } else {
       alert("Enter Valid inputs");
     }
-    window.location.reload();
   };
 
   const _savePlanesLocally = (planeObj) => {
@@ -47,21 +46,22 @@ const usePlane = () => {
 
   const _getPlanesLocally = () => {
     const _planes = restApiHelper.getItems("planes");
-    if (_planes !== null) {
+    try {
       setPlanes(_planes);
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const deletePlane = (index) => {
     const planesUpdate = planes;
     planesUpdate.splice(index, 1);
-    setPlanes(planesUpdate);
+
     restApiHelper.setItems("planes", planesUpdate);
-    window.location.reload();
+    _getPlanesLocally();
   };
 
-  const displayEngineerOptions = () => {
-    const { engineers } = engineerHelper.useEngineers();
+  const displayEngineerOptions = (engineers) => {
     if (engineers) {
       return engineers.map((engineerObj, i) => (
         <option key={i}>{engineerObj.name}</option>
@@ -71,9 +71,7 @@ const usePlane = () => {
     }
   };
 
-  const displayPaperOptions = () => {
-    const { papers } = paperHelper.usePapers();
-
+  const displayPaperOptions = (papers) => {
     if (papers) {
       return papers.map((paperObj, i) => (
         <option key={i}>{paperObj.type}</option>

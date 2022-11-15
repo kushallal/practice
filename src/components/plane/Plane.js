@@ -6,15 +6,16 @@ import classNames from "classnames";
 import { useContext } from "react";
 import { ThemeContext } from "../../Context";
 
-const Plane = () => {
+const Plane = ({
+  planes,
+  savePlane,
+  deletePlane,
+  displayPaperOptions,
+  displayEngineerOptions,
+  papers,
+  engineers,
+}) => {
   const { theme } = useContext(ThemeContext);
-  const {
-    planes,
-    savePlane,
-    deletePlane,
-    displayPaperOptions,
-    displayEngineerOptions,
-  } = planeHelper.usePlane();
 
   return (
     <div className={classNames({ form__light: !theme }, { form__dark: theme })}>
@@ -38,7 +39,7 @@ const Plane = () => {
           )}
           id={id.planes.planePaper}
         >
-          {displayPaperOptions()}
+          {displayPaperOptions(papers)}
         </select>
         <br />
 
@@ -51,7 +52,7 @@ const Plane = () => {
           )}
           id={id.planes.planeEngineer}
         >
-          {displayEngineerOptions()}
+          {displayEngineerOptions(engineers)}
         </select>
         <br />
 

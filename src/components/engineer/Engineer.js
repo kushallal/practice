@@ -1,15 +1,12 @@
 import React from "react";
-import engineerHelper from "../../helpers/EngineerHelper";
 import EngineerRows from "./EngineerRows";
 import { id } from "../../Constants";
 import classNames from "classnames";
 import { useContext } from "react";
 import { ThemeContext } from "../../Context";
 
-const Engineer = () => {
+const Engineer = ({ engineers, saveEngineer, deleteEngineer }) => {
   const { theme } = useContext(ThemeContext);
-  const { engineers, saveEngineer, deleteEngineer } =
-    engineerHelper.useEngineers();
 
   return (
     <div className={classNames({ form__light: !theme }, { form__dark: theme })}>

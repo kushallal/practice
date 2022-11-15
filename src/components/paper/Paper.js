@@ -1,14 +1,11 @@
 import PaperRows from "./PaperRows";
-import paperHelper from "../../helpers/PaperHelper";
 import { id } from "../../Constants";
 import classNames from "classnames";
 import { useContext } from "react";
 import { ThemeContext } from "../../Context";
 
-const Paper = () => {
+const Paper = ({ paperOptions, papers, savePaper, deletePaper }) => {
   const { theme } = useContext(ThemeContext);
-  const { paperOptions, papers, savePaper, deletePaper } =
-    paperHelper.usePapers();
 
   return (
     <div className={classNames({ form__light: !theme }, { form__dark: theme })}>

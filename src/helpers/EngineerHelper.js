@@ -24,7 +24,6 @@ const useEngineers = () => {
     } else {
       alert("Enter Valid inputs");
     }
-    window.location.reload();
   };
 
   const _saveEngineersLocally = (engineerObj) => {
@@ -41,14 +40,17 @@ const useEngineers = () => {
   const _getEngineersLocally = () => {
     const _engineers = restApiHelper.getItems("engineers");
 
-    setEngineers(_engineers);
+    try {
+      setEngineers(_engineers);
+    } catch (err) {
+      console.log(err);
+    }
   };
   const deleteEngineer = (index) => {
     const engineersUpdatedValue = engineers;
     engineersUpdatedValue.splice(index, 1);
-    setEngineers(engineersUpdatedValue);
     restApiHelper.setItems("engineers", engineersUpdatedValue);
-    window.location.reload();
+    _getEngineersLocally();
   };
 
   return { engineers, saveEngineer, deleteEngineer };
