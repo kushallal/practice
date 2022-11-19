@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import restApiHelper from "../../helpers/RestApiHelper";
 import applyTheme from "../../helpers/ApplyTheme";
 

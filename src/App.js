@@ -27,10 +27,8 @@ const App = () => {
 
     if (themeDark === true) {
       applyTheme.darkTheme();
-      return true;
     } else {
       applyTheme.lightTheme();
-      return false;
     }
   };
 
