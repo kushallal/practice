@@ -1,19 +1,18 @@
-import classNames from "classnames";
-import React, { useContext } from "react";
-import { ThemeContext } from "../../Context";
+import React, { useEffect } from "react";
 import restApiHelper from "../../helpers/RestApiHelper";
+import applyTheme from "../../helpers/ApplyTheme";
 
 function ToggleButton() {
-  const { theme, setTheme } = useContext(ThemeContext);
+  const themeValue = restApiHelper.getThemeValue();
+
   const toggleChange = () => {
     const toggleValue = document.getElementById("checkbox");
-
     if (toggleValue.checked) {
       restApiHelper.setThemeValue(true);
-      setTheme(true);
+      applyTheme.darkTheme();
     } else {
+      applyTheme.lightTheme();
       restApiHelper.setThemeValue(false);
-      setTheme(false);
     }
   };
 
@@ -24,7 +23,7 @@ function ToggleButton() {
           onChange={() => toggleChange()}
           id="checkbox"
           type="checkbox"
-          checked={classNames({ checked: theme })}
+          defaultChecked={themeValue}
         />
         <span className="slider"></span>
       </label>

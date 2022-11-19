@@ -1,50 +1,21 @@
 import PaperRows from "./PaperRows";
 import { id } from "../../Constants";
-import classNames from "classnames";
-import { useContext } from "react";
-import { ThemeContext } from "../../Context";
 
 const Paper = ({ paperOptions, papers, savePaper, deletePaper }) => {
-  const { theme } = useContext(ThemeContext);
-
   return (
-    <div className={classNames({ form__light: !theme }, { form__dark: theme })}>
+    <div className="form">
       <form className="form__element">
         <h1>Paper Description</h1>
         <label>Paper Type</label>
-        <select
-          className={classNames(
-            { input__light: !theme },
-            { input__dark: theme }
-          )}
-          id={id.papers.type}
-        >
-          {paperOptions}
-        </select>
+        <select id={id.papers.type}>{paperOptions}</select>
         <br />
 
         <label>Paper Length</label>
-        <input
-          className={classNames(
-            { input__light: !theme },
-            { input__dark: theme }
-          )}
-          id={id.papers.length}
-          type="number"
-          required
-        />
+        <input id={id.papers.length} type="number" required />
         <br />
 
         <label>Paper Height</label>
-        <input
-          className={classNames(
-            { input__light: !theme },
-            { input__dark: theme }
-          )}
-          id={id.papers.height}
-          type="number"
-          required
-        />
+        <input id={id.papers.height} type="number" required />
         <br />
 
         <button type="button" className="btn--submit" onClick={savePaper}>

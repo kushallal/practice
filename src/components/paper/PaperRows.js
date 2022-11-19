@@ -1,10 +1,6 @@
 import React from "react";
-import classNames from "classnames";
-import { useContext } from "react";
-import { ThemeContext } from "../../Context";
 
 const PaperRows = ({ papers, removePaperRow }) => {
-  const { theme } = useContext(ThemeContext);
   const tableBody = () => {
     if (papers != null) {
       return papers.map((paperObj, i) => {
@@ -14,10 +10,7 @@ const PaperRows = ({ papers, removePaperRow }) => {
             <td>{paperObj.length}</td>
             <td>{paperObj.height}</td>
             <td>
-              <button
-                className="btn--delete"
-                onClick={() => removePaperRow({ i })}
-              >
+              <button className="btn--delete" onClick={() => removePaperRow(i)}>
                 Delete
               </button>
             </td>
@@ -29,15 +22,6 @@ const PaperRows = ({ papers, removePaperRow }) => {
     }
   };
 
-  return (
-    <tbody
-      className={classNames(
-        { table__body__light: !theme },
-        { table__body__dark: theme }
-      )}
-    >
-      {tableBody()}
-    </tbody>
-  );
+  return <tbody className="table__body">{tableBody()}</tbody>;
 };
 export default PaperRows;

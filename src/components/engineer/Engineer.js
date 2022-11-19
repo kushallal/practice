@@ -1,51 +1,22 @@
 import React from "react";
 import EngineerRows from "./EngineerRows";
 import { id } from "../../Constants";
-import classNames from "classnames";
-import { useContext } from "react";
-import { ThemeContext } from "../../Context";
 
 const Engineer = ({ engineers, saveEngineer, deleteEngineer }) => {
-  const { theme } = useContext(ThemeContext);
-
   return (
-    <div className={classNames({ form__light: !theme }, { form__dark: theme })}>
+    <div className="form">
       <form className="form__element">
         <h1>Engineer Description</h1>
         <label>Name</label>
-        <input
-          className={classNames(
-            { input__light: !theme },
-            { input__dark: theme }
-          )}
-          type="text"
-          id={id.engineers.name}
-          required
-        />
+        <input type="text" id={id.engineers.name} required />
 
         <br />
         <label>Age</label>
-        <input
-          className={classNames(
-            { input__light: !theme },
-            { input__dark: theme }
-          )}
-          type="numbers"
-          id={id.engineers.age}
-          required
-        />
+        <input type="numbers" id={id.engineers.age} required />
         <br />
 
         <label>Experience</label>
-        <input
-          className={classNames(
-            { input__light: !theme },
-            { input__dark: theme }
-          )}
-          type="numbers"
-          id={id.engineers.experience}
-          required
-        />
+        <input type="numbers" id={id.engineers.experience} required />
         <br />
         <button className="btn--submit" type="button" onClick={saveEngineer}>
           Submit

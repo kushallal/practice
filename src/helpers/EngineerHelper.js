@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import utils from "./Utils";
 import restApiHelper from "./RestApiHelper";
 import { id } from "../Constants";
-import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 
 const useEngineers = () => {
   const [engineers, setEngineers] = useState([]);
@@ -28,7 +27,7 @@ const useEngineers = () => {
 
   const _saveEngineersLocally = (engineerObj) => {
     if (engineers != null) {
-      const _engineers = [engineerObj, ...engineers];
+      const _engineers = [...engineers, engineerObj];
       restApiHelper.setItems("engineers", _engineers);
     } else {
       const _engineers = [engineerObj];
