@@ -16,34 +16,29 @@ const useEngineers = () => {
 
     if (valueAge >= 18 && valueExp >= 2 && valueName.length > 1) {
       _saveEngineersLocally({
-        name: valueName,
-        age: valueAge,
-        experience: valueExp,
+        engineerName: valueName,
+        engineerAge: valueAge,
+        engineerExperience: valueExp,
       });
     } else {
       alert("Enter Valid inputs");
     }
   };
 
-  const _saveEngineersLocally = (engineerObj) => {
-    if (engineers != null) {
-      const _engineers = [...engineers, engineerObj];
-      restApiHelper.setItems("engineers", _engineers);
-    } else {
-      const _engineers = [engineerObj];
-      restApiHelper.setItems("engineers", _engineers);
+  const _saveEngineersLocally = async (engineerObj) => {
+    try {
+      await restApiHelper.setItem("engineers", engineerObj);
+      _getEngineersLocally();
+    } catch (err) {
+      console.error(err);
     }
-    _getEngineersLocally();
   };
 
   const _getEngineersLocally = async () => {
     try {
-      await restApiHelper
-        .getItems("engineers")
-        .then((engineers) => engineers.json())
-        .then((jsonEngineers) => {
-          setEngineers(jsonEngineers);
-        });
+      const resEngineers = await restApiHelper.getItems("engineers");
+      const _engineers = await resEngineers.json();
+      setEngineers(_engineers);
     } catch (err) {
       console.log(err);
     }

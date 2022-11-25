@@ -20,11 +20,8 @@ router.get("/names", async (req, res) => {
       engineerExperience: 0,
       _id: 0,
     };
-    const engineerNames = await db.engineers
-      .find()
-      .project(projection)
-      .toArray();
-
+    const _names = await db.engineers.find().project(projection).toArray();
+    const engineerNames = _names.map((name) => name.engineerName);
     res.json(engineerNames);
   } catch (err) {
     res.json({ message: err });

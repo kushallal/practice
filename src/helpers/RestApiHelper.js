@@ -19,7 +19,7 @@ const getItems = async (id) => {
 
 const setItem = async (id, value) => {
   const data = JSON.stringify(value);
-  console.log(data);
+
   try {
     await fetch(`http://localhost:5000/${id}`, {
       method: "POST",

@@ -1,18 +1,11 @@
 import React from "react";
 import PlaneRows from "./PlaneRows";
-
 import { id } from "../../Constants";
-import classNames from "classnames";
+import planeHelper from "../../helpers/PlaneHelper";
 
-const Plane = ({
-  planes,
-  savePlane,
-  deletePlane,
-  displayPaperOptions,
-  displayEngineerOptions,
-  papers,
-  engineers,
-}) => {
+const Plane = () => {
+  const { planes, paperOptions, engineerOptions, savePlane, deletePlane } =
+    planeHelper.usePlane();
   return (
     <div className="form">
       <form className="form__element">
@@ -22,14 +15,12 @@ const Plane = ({
         <br />
         <label>Paper Name</label>
 
-        <select id={id.planes.planePaper}>{displayPaperOptions(papers)}</select>
+        <select id={id.planes.planePaper}>{paperOptions}</select>
         <br />
 
         <label>Engineer Name</label>
 
-        <select id={id.planes.planeEngineer}>
-          {displayEngineerOptions(engineers)}
-        </select>
+        <select id={id.planes.planeEngineer}>{engineerOptions}</select>
         <br />
 
         <label>Completion Date</label>

@@ -45,12 +45,9 @@ export const usePapers = () => {
 
   const _getPapersLocally = async () => {
     try {
-      await restApiHelper
-        .getItems("papers")
-        .then((papers) => papers.json())
-        .then((jsonPapers) => {
-          setPapers(jsonPapers);
-        });
+      const resPapers = await restApiHelper.getItems("papers");
+      const _papers = await resPapers.json();
+      setPapers(_papers);
     } catch (err) {
       console.log(err);
     }

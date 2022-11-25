@@ -7,7 +7,7 @@ const PlaneRows = ({ planes, removePlaneRow }) => {
         return (
           <tr key={i}>
             <td> {planeObject.planeName}</td>
-            <td>{planeObject.planePaper}</td>
+            <td>{planeObject.paperUsed}</td>
             <td>{planeObject.planeEngineer}</td>
             <td>{planeObject.completionDate}</td>
             <td>

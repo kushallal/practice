@@ -18,7 +18,8 @@ router.get("/types", async (req, res) => {
       paperHeight: 0,
       paperLength: 0,
     };
-    const paperTypes = await db.papers.find().project(projection).toArray();
+    const _types = await db.papers.find().project(projection).toArray();
+    const paperTypes = _types.map((type) => type.paperType);
     res.json(paperTypes);
   } catch (err) {
     res.json({ message: err });

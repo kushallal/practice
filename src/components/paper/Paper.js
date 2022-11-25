@@ -1,7 +1,10 @@
 import PaperRows from "./PaperRows";
 import { id } from "../../Constants";
+import paperHelper from "../../helpers/PaperHelper";
 
-const Paper = ({ paperOptions, papers, savePaper, deletePaper }) => {
+const Paper = () => {
+  const { paperOptions, papers, savePaper, deletePaper } =
+    paperHelper.usePapers();
   return (
     <div className="form">
       <form className="form__element">
