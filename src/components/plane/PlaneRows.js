@@ -11,7 +11,10 @@ const PlaneRows = ({ planes, removePlaneRow }) => {
             <td>{planeObject.planeEngineer}</td>
             <td>{planeObject.completionDate}</td>
             <td>
-              <button className="btn--delete" onClick={() => removePlaneRow(i)}>
+              <button
+                className="btn--delete"
+                onClick={() => removePlaneRow(planeObject._id)}
+              >
                 Delete
               </button>
             </td>
