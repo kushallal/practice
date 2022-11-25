@@ -48,12 +48,14 @@ export const usePapers = () => {
   };
 
   const _getPapersLocally = () => {
-    const _papers = restApiHelper.getItems("papers");
-    try {
-      setPapers(_papers);
-    } catch (err) {
-      console.log(err);
-    }
+    // const _papers = restApiHelper.getItems("papers");
+    // try {
+    //   _papers
+    //     .then((paper) => paper.json())
+    //     .then((jsonPaper) => setPapers(jsonPaper));
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   const deletePaper = (index) => {

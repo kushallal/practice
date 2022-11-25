@@ -37,13 +37,14 @@ const useEngineers = () => {
   };
 
   const _getEngineersLocally = () => {
-    const _engineers = restApiHelper.getItems("engineers");
-
-    try {
-      setEngineers(_engineers);
-    } catch (err) {
-      console.log(err);
-    }
+    // const _engineers = restApiHelper.getItems("engineers");
+    // try {
+    //   _engineers
+    //     .then((engineer) => engineer.json())
+    //     .then((jsonEngineer) => setEngineers(jsonEngineer));
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
   const deleteEngineer = (index) => {
     const engineersUpdatedValue = engineers;

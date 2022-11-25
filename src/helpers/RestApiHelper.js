@@ -13,16 +13,17 @@ const getPapersOptions = async () => {
   return paperName;
 };
 
-const getItems = (key) => {
-  const items = JSON.parse(localStorage.getItem(key));
-  return items;
+const getItems = () => {
+  const item = fetch("/papers/types", { method: "get" });
+  item.then((el) => el.json()).then((js) => console.log(js));
 };
 
-const setItems = (key, value) => {
+const setItems = async (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
 
 export const getThemeValue = () => {
+  getItems();
   const themeValue = JSON.parse(localStorage.getItem("themeDark"));
   return themeValue;
 };

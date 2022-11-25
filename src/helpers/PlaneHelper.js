@@ -45,12 +45,14 @@ const usePlane = () => {
   };
 
   const _getPlanesLocally = () => {
-    const _planes = restApiHelper.getItems("planes");
-    try {
-      setPlanes(_planes);
-    } catch (err) {
-      console.log(err);
-    }
+    // const _planes = restApiHelper.getItems("planes");
+    // try {
+    //   _planes
+    //     .then((planes) => planes.json())
+    //     .then((jsonPlanes) => setPlanes(jsonPlanes));
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   const deletePlane = (index) => {
