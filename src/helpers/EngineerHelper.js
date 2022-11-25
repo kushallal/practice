@@ -36,21 +36,25 @@ const useEngineers = () => {
     _getEngineersLocally();
   };
 
-  const _getEngineersLocally = () => {
-    // const _engineers = restApiHelper.getItems("engineers");
-    // try {
-    //   _engineers
-    //     .then((engineer) => engineer.json())
-    //     .then((jsonEngineer) => setEngineers(jsonEngineer));
-    // } catch (err) {
-    //   console.log(err);
-    // }
+  const _getEngineersLocally = async () => {
+    try {
+      await restApiHelper
+        .getItems("engineers")
+        .then((engineers) => engineers.json())
+        .then((jsonEngineers) => {
+          setEngineers(jsonEngineers);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
-  const deleteEngineer = (index) => {
-    const engineersUpdatedValue = engineers;
-    engineersUpdatedValue.splice(index, 1);
-    restApiHelper.setItems("engineers", engineersUpdatedValue);
-    _getEngineersLocally();
+  const deleteEngineer = async (id) => {
+    try {
+      await restApiHelper.delItem(`engineers/${id}`);
+      await _getEngineersLocally();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return { engineers, saveEngineer, deleteEngineer };

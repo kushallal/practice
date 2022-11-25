@@ -27,6 +27,7 @@ router.get("/types", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
+    console.log(req.body);
     const document = await db.papers.insertOne({
       paperType: req.body.paperType,
       paperLength: req.body.paperLength,

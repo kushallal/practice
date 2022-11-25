@@ -6,11 +6,14 @@ const PaperRows = ({ papers, removePaperRow }) => {
       return papers.map((paperObj, i) => {
         return (
           <tr key={i}>
-            <td>{paperObj.type}</td>
-            <td>{paperObj.length}</td>
-            <td>{paperObj.height}</td>
+            <td>{paperObj.paperType}</td>
+            <td>{paperObj.paperLength}</td>
+            <td>{paperObj.paperHeight}</td>
             <td>
-              <button className="btn--delete" onClick={() => removePaperRow(i)}>
+              <button
+                className="btn--delete"
+                onClick={() => removePaperRow(paperObj._id)}
+              >
                 Delete
               </button>
             </td>

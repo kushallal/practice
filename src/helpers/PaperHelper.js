@@ -7,18 +7,15 @@ export const usePapers = () => {
   const [papers, setPapers] = useState([]);
   const [paperOptions, setPaperOptions] = useState([]);
   useEffect(() => {
-    restApiHelper
-      .getPapersOptions()
-      .then((options) => options.json())
-      .then((jsonOptions) =>
-        setPaperOptions(
-          jsonOptions[0].options.map((paperType, i) => (
-            <option key={i} value={paperType}>
-              {paperType}
-            </option>
-          ))
-        )
+    const fetchOptions = async () => {
+      const response = await restApiHelper.getItems("options");
+      const types = await response.json();
+      setPaperOptions(
+        types[0].options.map((type, i) => <option key={i}>{type}</option>)
       );
+    };
+    fetchOptions();
+    _getPapersLocally();
   }, []);
 
   const savePaper = () => {
@@ -26,43 +23,46 @@ export const usePapers = () => {
     const valueLength = utils.getIdValue(id.papers.length);
     const valueHeight = utils.getIdValue(id.papers.height);
     if (valueLength > 0 && valueHeight > 0) {
-      _savePapersLocally({
-        type: valueType,
-        length: valueLength,
-        height: valueHeight,
-      });
+      const paperObj = {
+        paperType: valueType,
+        paperLength: valueLength,
+        paperHeight: valueHeight,
+      };
+      _savePapersLocally(paperObj);
     } else {
       alert("Enter Valid inputs");
     }
   };
 
-  const _savePapersLocally = (paperObj) => {
-    if (papers != null) {
-      const _papers = [paperObj, ...papers];
-      restApiHelper.setItems("papers", _papers);
-    } else {
-      const _papers = [paperObj];
-      restApiHelper.setItems("papers", _papers);
+  const _savePapersLocally = async (paperObj) => {
+    try {
+      await restApiHelper.setItem("papers", paperObj);
+      _getPapersLocally();
+    } catch (err) {
+      console.error(err);
     }
-    _getPapersLocally();
   };
 
-  const _getPapersLocally = () => {
-    // const _papers = restApiHelper.getItems("papers");
-    // try {
-    //   _papers
-    //     .then((paper) => paper.json())
-    //     .then((jsonPaper) => setPapers(jsonPaper));
-    // } catch (err) {
-    //   console.log(err);
-    // }
+  const _getPapersLocally = async () => {
+    try {
+      await restApiHelper
+        .getItems("papers")
+        .then((papers) => papers.json())
+        .then((jsonPapers) => {
+          setPapers(jsonPapers);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const deletePaper = (index) => {
-    const papersUpdatedValue = papers;
-    papersUpdatedValue.splice(index, 1);
-    restApiHelper.setItems("papers", papersUpdatedValue);
-    _getPapersLocally();
+  const deletePaper = async (id) => {
+    try {
+      await restApiHelper.delItem(`papers/${id}`);
+      await _getPapersLocally();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return { paperOptions, papers, savePaper, deletePaper };
