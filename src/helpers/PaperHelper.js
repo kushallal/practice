@@ -7,19 +7,18 @@ export const usePapers = () => {
   const [papers, setPapers] = useState([]);
   const [paperOptions, setPaperOptions] = useState([]);
   useEffect(() => {
-    _getPapersLocally();
     restApiHelper
       .getPapersOptions()
-      .then((paperTypes) =>
+      .then((options) => options.json())
+      .then((jsonOptions) =>
         setPaperOptions(
-          paperTypes.map((paperType, i) => (
+          jsonOptions[0].options.map((paperType, i) => (
             <option key={i} value={paperType}>
               {paperType}
             </option>
           ))
         )
-      )
-      .catch((err) => alert(err));
+      );
   }, []);
 
   const savePaper = () => {

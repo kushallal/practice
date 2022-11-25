@@ -1,15 +1,15 @@
 import { paperOptions } from "../Constants";
 
-const _providePapersOptions = () => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(paperOptions);
-    }, 1000);
-  });
-};
+// const _providePapersOptions = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       resolve(paperOptions);
+//     }, 1000);
+//   });
+// };
 
 const getPapersOptions = async () => {
-  const paperName = await _providePapersOptions();
+  const paperName = await fetch("http://localhost:5000/options");
   return paperName;
 };
 
