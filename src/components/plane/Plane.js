@@ -8,7 +8,7 @@ const Plane = () => {
     planeHelper.usePlane();
   return (
     <div className="form">
-      <form className="form__element">
+      <form className="form__element" encType="multipart/form-data">
         <h1>Planes Description</h1>
         <label>Plane Name</label>
         <input id={id.planes.planeName} />
@@ -25,6 +25,10 @@ const Plane = () => {
 
         <label>Completion Date</label>
         <input id={id.planes.completionDate} type="date" />
+        <br />
+
+        <label>Photo</label>
+        <input type="file" id={id.planes.imageFile} />
         <br />
 
         <button className="btn--submit" type="button" onClick={savePlane}>

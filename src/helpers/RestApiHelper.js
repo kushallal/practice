@@ -21,9 +21,30 @@ const setItem = async (id, value) => {
   const data = JSON.stringify(value);
 
   try {
-    await fetch(`http://localhost:5000/${id}`, {
+    const verfied = await fetch(`http://localhost:5000/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: data,
+    });
+    return verfied;
+  } catch (err) {
+    console.error(err);
+  }
+};
+const setPlane = async (id, value) => {
+  const data = new FormData();
+  data.append("message", value.message);
+  data.append("address", value.address);
+  data.append("signature", value.signature);
+  data.append("planeName", value.planeName);
+  data.append("paperUsed", value.paperUsed);
+  data.append("planeEngineer", value.planeEngineer);
+  data.append("completionDate", value.completionDate);
+  data.append("image", value.imageFile);
+
+  try {
+    await fetch(`http://localhost:5000/${id}`, {
+      method: "POST",
       body: data,
     });
   } catch (err) {
@@ -51,6 +72,7 @@ export const setThemeValue = (themeValue) => {
 export default {
   getItems,
   setItem,
+  setPlane,
   delItem,
   getThemeValue,
   setThemeValue,
