@@ -15,11 +15,11 @@ router.get("/types", async (req, res) => {
   try {
     const projection = {
       _id: 0,
-      paperHeight: 0,
-      paperLength: 0,
+      height: 0,
+      length: 0,
     };
     const _types = await db.papers.find().project(projection).toArray();
-    const paperTypes = _types.map((type) => type.paperType);
+    const paperTypes = _types.map((paper) => paper.type);
     res.json(paperTypes);
   } catch (err) {
     res.json({ message: err });
@@ -30,9 +30,9 @@ router.post("/", async (req, res) => {
   try {
     console.log(req.body);
     const document = await db.papers.insertOne({
-      paperType: req.body.paperType,
-      paperLength: req.body.paperLength,
-      paperHeight: req.body.paperHeight,
+      type: req.body.paperType,
+      length: req.body.paperLength,
+      height: req.body.paperHeight,
     });
     res.send(document);
   } catch (err) {

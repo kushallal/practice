@@ -37,13 +37,14 @@ router.post("/", upload.single("image"), async (req, res) => {
       address: req.body.address,
     };
     const planeDocument = {
-      planeName: req.body.planeName,
-      paperUsed: req.body.paperUsed,
-      planeEngineer: req.body.planeEngineer,
+      name: req.body.planeName,
+      paper: req.body.paperUsed,
+      engineer: req.body.planeEngineer,
       completionDate: req.body.completionDate,
     };
-    const verifyBool = verifySignature(signatureObj);
 
+    const verifyBool = verifySignature(signatureObj);
+    console.log("running");
     if (verifyBool) {
       const receivedPlane = await db.planes.insertOne(planeDocument);
       let mailOptions = {

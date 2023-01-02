@@ -5,9 +5,9 @@ const EngineerRows = ({ engineers, removeEngineerRow }) => {
     if (engineers != null) {
       return engineers.map((engineerObj, i) => (
         <tr key={i}>
-          <td>{engineerObj.engineerName}</td>
-          <td>{engineerObj.engineerAge}</td>
-          <td>{engineerObj.engineerExperience}</td>
+          <td>{engineerObj.name}</td>
+          <td>{engineerObj.age}</td>
+          <td>{engineerObj.experience}</td>
           <td>
             <button
               className="btn--delete"

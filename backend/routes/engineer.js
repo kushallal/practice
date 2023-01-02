@@ -16,13 +16,13 @@ router.get("/", async (req, res) => {
 router.get("/names", async (req, res) => {
   try {
     const projection = {
-      engineerAge: 0,
-      engineerExperience: 0,
+      age: 0,
+      experience: 0,
       _id: 0,
     };
     const _names = await db.engineers.find().project(projection).toArray();
-    const engineerNames = _names.map((name) => name.engineerName);
-    res.json(engineerNames);
+    const names = _names.map((engineer) => engineer.name);
+    res.json(names);
   } catch (err) {
     res.json({ message: err });
   }
@@ -31,9 +31,9 @@ router.get("/names", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const receivedEngineer = await db.engineers.insertOne({
-      engineerName: req.body.engineerName,
-      engineerAge: req.body.engineerAge,
-      engineerExperience: req.body.engineerExperience,
+      name: req.body.engineerName,
+      age: req.body.engineerAge,
+      experience: req.body.engineerExperience,
     });
     res.json(receivedEngineer);
   } catch (err) {
