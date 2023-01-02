@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import utils from "./Utils";
 import restApiHelper from "./RestApiHelper";
 import { id } from "../Constants";
@@ -16,40 +16,40 @@ const useEngineers = () => {
 
     if (valueAge >= 18 && valueExp >= 2 && valueName.length > 1) {
       _saveEngineersLocally({
-        name: valueName,
-        age: valueAge,
-        experience: valueExp,
+        engineerName: valueName,
+        engineerAge: valueAge,
+        engineerExperience: valueExp,
       });
     } else {
       alert("Enter Valid inputs");
     }
   };
 
-  const _saveEngineersLocally = (engineerObj) => {
-    if (engineers != null) {
-      const _engineers = [...engineers, engineerObj];
-      restApiHelper.setItems("engineers", _engineers);
-    } else {
-      const _engineers = [engineerObj];
-      restApiHelper.setItems("engineers", _engineers);
+  const _saveEngineersLocally = async (engineerObj) => {
+    try {
+      await restApiHelper.setItem("engineers", engineerObj);
+      _getEngineersLocally();
+    } catch (err) {
+      console.error(err);
     }
-    _getEngineersLocally();
   };
 
-  const _getEngineersLocally = () => {
-    const _engineers = restApiHelper.getItems("engineers");
-
+  const _getEngineersLocally = async () => {
     try {
+      const resEngineers = await restApiHelper.getItems("engineers");
+      const _engineers = await resEngineers.json();
       setEngineers(_engineers);
     } catch (err) {
       console.log(err);
     }
   };
-  const deleteEngineer = (index) => {
-    const engineersUpdatedValue = engineers;
-    engineersUpdatedValue.splice(index, 1);
-    restApiHelper.setItems("engineers", engineersUpdatedValue);
-    _getEngineersLocally();
+  const deleteEngineer = async (id) => {
+    try {
+      await restApiHelper.delItem(`engineers/${id}`);
+      await _getEngineersLocally();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return { engineers, saveEngineer, deleteEngineer };

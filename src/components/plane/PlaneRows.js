@@ -6,12 +6,15 @@ const PlaneRows = ({ planes, removePlaneRow }) => {
       return planes.map((planeObject, i) => {
         return (
           <tr key={i}>
-            <td> {planeObject.planeName}</td>
-            <td>{planeObject.planePaper}</td>
-            <td>{planeObject.planeEngineer}</td>
+            <td> {planeObject.name}</td>
+            <td>{planeObject.paper}</td>
+            <td>{planeObject.engineer}</td>
             <td>{planeObject.completionDate}</td>
             <td>
-              <button className="btn--delete" onClick={() => removePlaneRow(i)}>
+              <button
+                className="btn--delete"
+                onClick={() => removePlaneRow(planeObject._id)}
+              >
                 Delete
               </button>
             </td>

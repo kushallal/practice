@@ -1,8 +1,11 @@
 import React from "react";
 import EngineerRows from "./EngineerRows";
 import { id } from "../../Constants";
+import engineerHelper from "../../helpers/EngineerHelper";
 
-const Engineer = ({ engineers, saveEngineer, deleteEngineer }) => {
+const Engineer = () => {
+  const { engineers, saveEngineer, deleteEngineer } =
+    engineerHelper.useEngineers();
   return (
     <div className="form">
       <form className="form__element">

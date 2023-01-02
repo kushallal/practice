@@ -11,7 +11,7 @@ const EngineerRows = ({ engineers, removeEngineerRow }) => {
           <td>
             <button
               className="btn--delete"
-              onClick={() => removeEngineerRow(i)}
+              onClick={() => removeEngineerRow(engineerObj._id)}
             >
               Delete
             </button>

@@ -14,6 +14,7 @@ export const id = {
     planePaper: "paperTypeUsed",
     planeEngineer: "planeEngineerName",
     completionDate: "completionDate",
+    imageFile: "imageFile",
   },
 };
 export const paperOptions = ["Nepali Paper", "White Paper", "Blotting Paper"];

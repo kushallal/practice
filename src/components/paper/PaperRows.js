@@ -10,7 +10,10 @@ const PaperRows = ({ papers, removePaperRow }) => {
             <td>{paperObj.length}</td>
             <td>{paperObj.height}</td>
             <td>
-              <button className="btn--delete" onClick={() => removePaperRow(i)}>
+              <button
+                className="btn--delete"
+                onClick={() => removePaperRow(paperObj._id)}
+              >
                 Delete
               </button>
             </td>
